@@ -73,7 +73,7 @@ describe(PhotoFrameComponent.name, () => {
     fixture.detectChanges(); //to redraw the DOM to detect the incrementations (update the screen)
 
     //get the HTML element from the page
-    const element = fixture.nativeElement.querySelectorz('.like-counter');
+    const element = fixture.nativeElement.querySelector('.like-counter');
 
     expect(element.textContent.trim()).toBe('1');//trim() to remove the space before/after
   });
