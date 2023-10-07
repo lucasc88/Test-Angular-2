@@ -65,7 +65,8 @@ describe(PhotoFrameComponent.name, () => {
     expect(times).toBe(2);
   }));
 
-  it(`should display number of likes when (@Input likes)is incremented`, () => {
+  //(D) means DOM - Just to know because it takes more time to test DOM elements
+  it(`(D) should display number of likes when (@Input likes)is incremented`, () => {
 
     fixture.detectChanges(); //to trigger the ngOninit()
     component.likes++;
@@ -77,4 +78,20 @@ describe(PhotoFrameComponent.name, () => {
 
     expect(element.textContent.trim()).toBe('1');//trim() to remove the space before/after
   });
+
+    //(D) means DOM - Just to know because it takes more time to test DOM elements
+    it(`(D) should display image with description when bound to properties`, () => {
+
+      const description = 'some description';
+      const src ='http;//somesite.com/img.jpg';
+
+      component.src = src;
+      component.description = description;
+
+      fixture.detectChanges();
+
+      const img: HTMLImageElement = fixture.nativeElement.querySelector('img');
+      expect(img.getAttribute('src')).toBe(src);
+      expect(img.getAttribute('alt')).toBe(description);
+    });
 });
