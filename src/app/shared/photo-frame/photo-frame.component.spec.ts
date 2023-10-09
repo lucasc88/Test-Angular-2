@@ -67,7 +67,6 @@ describe(PhotoFrameComponent.name, () => {
 
   //(D) means DOM - Just to know because it takes more time to test DOM elements
   it(`(D) should display number of likes when (@Input likes)is incremented`, () => {
-
     fixture.detectChanges(); //to trigger the ngOninit()
     component.likes++;
 
@@ -76,22 +75,39 @@ describe(PhotoFrameComponent.name, () => {
     //get the HTML element from the page
     const element = fixture.nativeElement.querySelector('.like-counter');
 
-    expect(element.textContent.trim()).toBe('1');//trim() to remove the space before/after
+    expect(element.textContent.trim()).toBe('1'); //trim() to remove the space before/after
   });
 
-    //(D) means DOM - Just to know because it takes more time to test DOM elements
-    it(`(D) should display image with description when bound to properties`, () => {
+  //(D) means DOM - Just to know because it takes more time to test DOM elements
+  it(`(D) should display image with description when bound to properties`, () => {
+    const description = 'some description';
+    const src = 'http;//somesite.com/img.jpg';
 
-      const description = 'some description';
-      const src ='http;//somesite.com/img.jpg';
+    component.src = src;
+    component.description = description;
 
-      component.src = src;
-      component.description = description;
+    fixture.detectChanges();
 
-      fixture.detectChanges();
+    const img: HTMLImageElement = fixture.nativeElement.querySelector('img');
+    expect(img.getAttribute('src')).toBe(src);
+    expect(img.getAttribute('alt')).toBe(description);
+  });
 
-      const img: HTMLImageElement = fixture.nativeElement.querySelector('img');
-      expect(img.getAttribute('src')).toBe(src);
-      expect(img.getAttribute('alt')).toBe(description);
+  it(`(D) should display number of likes when clicked`, done => {
+    fixture.detectChanges();
+    component.liked.subscribe(() => {
+      component.likes++;
+      fixture.detectChanges();//to redraw the page (to reflect the changes in the DOM)
+      const counterElement: HTMLElement = fixture.nativeElement.querySelector('.like-counter');
+      expect(counterElement.textContent.trim()).toBe('1');
+
+      //It is a good practice to put the 'done' to say that the test has been run.
+      //It's to say to Jasmine when the test is complete.
+      done();
     });
+
+    //get the element to trigger the click action
+    const likeWidgetContainerElement: HTMLElement = fixture.nativeElement.querySelector('.like-widget-container');
+    likeWidgetContainerElement.click();
+  });
 });
