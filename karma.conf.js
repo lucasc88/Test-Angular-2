@@ -12,6 +12,7 @@ module.exports = function (config) {
       require('karma-jasmine-html-reporter'),
       require('karma-junit-reporter'),
       require('karma-coverage'),
+      require('karma-time-stats-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
@@ -25,7 +26,7 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'kjhtml', 'dots', 'time-stats'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
@@ -38,6 +39,16 @@ module.exports = function (config) {
         base: 'Firefox',
         flags: ['-headless']
       }
-    }
+    },
+    timeStatsReporter: {
+      reportTimeStats: true,
+      binSize: 100,
+      reportSlowerThan: 500,
+      slowThreshold: 500,
+      reportSlowestTests: true,
+      showSlowTestRankNumber: false,
+      longestTestsCount: 10,
+      reportOnlyBeyondThreshold: false,
+    },
   });
 };
