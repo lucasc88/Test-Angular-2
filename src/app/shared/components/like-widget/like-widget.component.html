@@ -1,6 +1,5 @@
 <div class="like-widget-container"
-  (click)="like()"
-  (keyup.enter)="like()">
+  (appAction)="like()"><!--(appAction) will trigger click and keyup event at the same time-->
   <fa-icon
     role="button"
     tabindex="0"
