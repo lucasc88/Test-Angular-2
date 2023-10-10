@@ -38,6 +38,7 @@ export class PhotoFrameComponent implements OnInit, OnDestroy {
   }
 
   public like(): void {
+    console.log("!!!! frame")
     //to invoke the debounceSubject asObservable()
     this.debounceSubject.next();
   }
