@@ -3,20 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PhotoBoardComponent } from './photo-board.component';
 import { PhotoBoardModule } from './photo-board.module';
-import { Photo } from './interfaces/photo';
-
-//Object creation just to be used in the test
-function buildPhotoList(): Photo[] {
-  const photos: Photo[] = [];
-  for (let i = 0; i < 8; i++) {
-    photos.push({
-      id: i + 1,
-      url: '',
-      description: '',
-    });
-  }
-  return photos;
-}
+import { buildPhotoList } from './test/build-photo-list';
 
 describe(PhotoBoardComponent.name, () => {
   let component: PhotoBoardComponent;
